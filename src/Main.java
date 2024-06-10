@@ -1,44 +1,62 @@
-import departments.Department;
-import departments.FoodDepartment;
+import departments.Departments;
 import entities.Customer;
 import entities.FullTimeStaff;
 import entities.PartTimeStaff;
+import entities.Staff;
+import misc.PersonalShoppingAppointment;
 
-import java.text.NumberFormat;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("task 3");
+        /* Registering all the departments */
+        Departments.init();
 
-        Customer customer = new Customer("John Doe", 30, "johndoe@gmail.com", "12345678", "Male", "1234 Main St");
-        Customer customer2 = new Customer("Jim Doe", 25, "Jimdoe@gmail.com", "12345678", "Non Binary", "1234 Main St");
-        FullTimeStaff fullTimeStaff = new FullTimeStaff("Jane Doe", 25, "jane.doe@gmail.com", "87654321", "Female", "5678 Main St", 5000);
-        PartTimeStaff partTimeStaff = new PartTimeStaff("Jack Doe", 35, "jack.doe@gmail.com", "87654321", "Custom", "5678 Main St", 2500);
-        Department department = new Department("Clothing", "Idk", "123455667", "clothing@maximus.com");
-        department.addStaff(fullTimeStaff);
-        department.addStaff(partTimeStaff);
-        department.scheduleWorkshop("How to sew!");
+        /* Adding department staff */
+        FullTimeStaff[] fullTimeStaff = {
+                new FullTimeStaff("Jane Smith", 30, "janesmith@maximus.com", "+1 123 456 752", "Female", "456 Street, New York", 650),
+                new FullTimeStaff("Michael Johnson", 35, "michaeljohnson@maximus.com", "+1 123 456 753", "Male", "789 Road, New York", 700),
+                new FullTimeStaff("Emily Davis", 28, "emilydavis@maximus.com", "+1 123 456 754", "Female", "101 Lane, New York", 620),
+                new FullTimeStaff("David Wilson", 32, "davidwilson@maximus.com", "+1 123 456 755", "Male", "202 Boulevard, New York", 670)
+        };
 
-        department.getStaffList().forEach(staff -> System.out.println("Staff name: " + staff.getName()));
-        department.getAllWorkshops().forEach(workshop -> System.out.println("Workshop name: " + workshop));
+        // example data, TODO: replace with actual slot system
+        ArrayList<String> hours = new ArrayList<>();
+        hours.add("10:00 AM - 10:30 AM");
+        hours.add("10:30 AM - 11:00 AM");
+        hours.add("11:00 AM - 11:30 AM");
+        hours.add("11:30 AM - 12:00 PM");
 
-        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.UK);
+        for (FullTimeStaff staff : fullTimeStaff) {
+            staff.setAvailabilityHours(hours);
+            Departments.addStaff(staff);
+        }
 
-        System.out.println("Our first customer is = " + customer.getName());
-        System.out.println("Our first full time staff is = " + fullTimeStaff.getName());
-        System.out.println("Our first part time staff is = " + partTimeStaff.getName());
+        // Create an array of PartTimeStaff
+        PartTimeStaff[] partTimeStaff = {
+                new PartTimeStaff("Sarah Brown", 22, "sarahbrown@maximus.com", "+1 123 456 761", "Female", "321 Alley, New York", 300),
+                new PartTimeStaff("Chris Green", 26, "chrisgreen@maximus.com", "+1 123 456 762", "Male", "654 Street, New York", 320),
+                new PartTimeStaff("Anna White", 24, "annawhite@maximus.com", "+1 123 456 763", "Female", "987 Lane, New York", 310),
+                new PartTimeStaff("Tom Black", 29, "tomblack@maximus.com", "+1 123 456 764", "Male", "121 Road, New York", 330),
+                new PartTimeStaff("Lisa Blue", 27, "lisablue@maximus.com", "+1 123 456 765", "Female", "232 Avenue, New York", 300),
+                new PartTimeStaff("James Grey", 30, "jamesgrey@maximus.com", "+1 123 456 766", "Male", "343 Boulevard, New York", 320),
+                new PartTimeStaff("Emily Rose", 23, "emilyrose@maximus.com", "+1 123 456 767", "Female", "454 Street, New York", 310),
+                new PartTimeStaff("Mark Orange", 28, "markorange@maximus.com", "+1 123 456 768", "Male", "565 Lane, New York", 330),
+                new PartTimeStaff("Sophia Pink", 25, "sophiapink@maximus.com", "+1 123 456 769", "Female", "676 Road, New York", 300),
+                new PartTimeStaff("David Purple", 31, "davidpurple@maximus.com", "+1 123 456 770", "Male", "787 Avenue, New York", 320)
+        };
+        for (PartTimeStaff staff : partTimeStaff) {
+            Departments.addStaff(staff);
+        }
 
-        System.out.println("The salary of " + fullTimeStaff.getName() + " is = " + nf.format(fullTimeStaff.getSalary()) + " and the staff type is = " + fullTimeStaff.getStaffType());
-        System.out.println("The salary of " + partTimeStaff.getName() + " is = " + nf.format(partTimeStaff.getSalary()) + " and the staff type is = " + partTimeStaff.getStaffType());
-
-        System.out.println(department);
-
-        FoodDepartment foodDepartment = new FoodDepartment("Food", "Idk", "123455667", "food@maximus.com");
-        foodDepartment.registerForBootCamp(customer);
-        foodDepartment.registerForBootCamp(customer2);
-        foodDepartment.getAllBootcampRegistrations().forEach(c -> System.out.println("This customer is registered for bootcamp -> " + c.getName()));
+        /* Example Appointment System */
+        Customer customer = new Customer("Jane Doe", 27, "janedoe@gmail.com", "+1 123 456 772", "Female", "222 Elm St, New York");
+        FullTimeStaff randomFullTimeStaff = fullTimeStaff[(int) (Math.random() * fullTimeStaff.length)];
+        String selectedHour = randomFullTimeStaff.getAvailabilityHours().get((int) (Math.random() * randomFullTimeStaff.getAvailabilityHours().size()));
+        PersonalShoppingAppointment appointment = new PersonalShoppingAppointment(customer, randomFullTimeStaff, selectedHour);
+        System.out.println(appointment);
     }
 
 }

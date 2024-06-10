@@ -9,8 +9,8 @@ public class FoodDepartment extends Department implements Bootcamp {
 
     private final ArrayList<Customer> bootCampParticipants = new ArrayList<>();
 
-    public FoodDepartment(String name, String location, String phoneNumber, String email) {
-        super(name, location, phoneNumber, email);
+    public FoodDepartment(int id, String name, String location, String phoneNumber, String email) {
+        super(id, name, location, phoneNumber, email);
     }
 
     @Override
