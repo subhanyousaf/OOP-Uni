@@ -10,6 +10,8 @@ import java.util.Locale;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("task 3");
+
         Customer customer = new Customer("John Doe", 30, "johndoe@gmail.com", "12345678", "Male", "1234 Main St");
         Customer customer2 = new Customer("Jim Doe", 25, "Jimdoe@gmail.com", "12345678", "Non Binary", "1234 Main St");
         FullTimeStaff fullTimeStaff = new FullTimeStaff("Jane Doe", 25, "jane.doe@gmail.com", "87654321", "Female", "5678 Main St", 5000);
