@@ -2,10 +2,10 @@ import departments.Departments;
 import entities.Customer;
 import entities.FullTimeStaff;
 import entities.PartTimeStaff;
-import entities.Staff;
 import misc.PersonalShoppingAppointment;
+import misc.TimeSlot;
 
-import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -19,19 +19,27 @@ public class Main {
                 new FullTimeStaff("Jane Smith", 30, "janesmith@maximus.com", "+1 123 456 752", "Female", "456 Street, New York", 650),
                 new FullTimeStaff("Michael Johnson", 35, "michaeljohnson@maximus.com", "+1 123 456 753", "Male", "789 Road, New York", 700),
                 new FullTimeStaff("Emily Davis", 28, "emilydavis@maximus.com", "+1 123 456 754", "Female", "101 Lane, New York", 620),
-                new FullTimeStaff("David Wilson", 32, "davidwilson@maximus.com", "+1 123 456 755", "Male", "202 Boulevard, New York", 670)
+                new FullTimeStaff("David Wilson", 32, "davidwilson@maximus.com", "+1 123 456 755", "Male", "202 Boulevard, New York", 670),
+                new FullTimeStaff("Sophia Brown", 29, "sophiabrown@maximus.com", "+1 123 456 756", "Female", "303 Avenue, New York", 680),
+                new FullTimeStaff("James Taylor", 38, "jamestaylor@maximus.com", "+1 123 456 757", "Male", "404 Street, New York", 720),
+                new FullTimeStaff("Olivia Martinez", 31, "oliviamartinez@maximus.com", "+1 123 456 758", "Female", "505 Lane, New York", 660),
+                new FullTimeStaff("John Anderson", 40, "johnanderson@maximus.com", "+1 123 456 759", "Male", "606 Boulevard, New York", 730)
         };
 
-        // example data, TODO: replace with actual slot system
-        ArrayList<String> hours = new ArrayList<>();
-        hours.add("10:00 AM - 10:30 AM");
-        hours.add("10:30 AM - 11:00 AM");
-        hours.add("11:00 AM - 11:30 AM");
-        hours.add("11:30 AM - 12:00 PM");
-
-        for (FullTimeStaff staff : fullTimeStaff) {
-            staff.setAvailabilityHours(hours);
-            Departments.addStaff(staff);
+        /* Settings availability hours for full-time staff & adding them to the departments */
+        TimeSlot[] timeSlots = {
+                new TimeSlot("12:00 PM", "12:30 PM"),
+                new TimeSlot("12:30 PM", "1:00 PM"),
+                new TimeSlot("1:00 PM", "1:30 PM"),
+                new TimeSlot("1:30 PM", "2:00 PM"),
+                new TimeSlot("2:00 PM", "2:30 PM"),
+                new TimeSlot("2:30 PM", "3:00 PM"),
+                new TimeSlot("3:00 PM", "3:30 PM"),
+                new TimeSlot("3:30 PM", "4:00 PM")
+        };
+        for (int i = 0; i < fullTimeStaff.length; i++) {
+            fullTimeStaff[i].setAvailabilityHour(timeSlots[i]);
+            Departments.addStaff(fullTimeStaff[i]);
         }
 
         // Create an array of PartTimeStaff
@@ -51,12 +59,80 @@ public class Main {
             Departments.addStaff(staff);
         }
 
-        /* Example Appointment System */
-        Customer customer = new Customer("Jane Doe", 27, "janedoe@gmail.com", "+1 123 456 772", "Female", "222 Elm St, New York");
-        FullTimeStaff randomFullTimeStaff = fullTimeStaff[(int) (Math.random() * fullTimeStaff.length)];
-        String selectedHour = randomFullTimeStaff.getAvailabilityHours().get((int) (Math.random() * randomFullTimeStaff.getAvailabilityHours().size()));
-        PersonalShoppingAppointment appointment = new PersonalShoppingAppointment(customer, randomFullTimeStaff, selectedHour);
-        System.out.println(appointment);
+        /* Customer Interaction & Appointment System */
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to Maximus Shopping Mall!");
+
+        String customerName = getStringInput(scanner, "Please enter your name:");
+        int customerAge = getIntInput(scanner, "Please enter your age:");
+        scanner.nextLine();
+        String customerEmail = getStringInput(scanner, "Please enter your email:");
+        String customerPhoneNumber = getStringInput(scanner, "Please enter your phone number:");
+        String customerGender = getStringInput(scanner, "Please enter your gender:");
+        String customerAddress = getStringInput(scanner, "Please enter your address:");
+
+        System.out.println("When would you like a personal shopper?");
+        for (int i = 0; i < timeSlots.length; i++) {
+            System.out.println((i + 1) + ". " + timeSlots[i] + " - " + fullTimeStaff[i].getName());
+        }
+
+        int timeSlot = getIntInput(scanner, "Please select a time slot (1-8):", 1, 8);
+        TimeSlot selectedTimeSlot = timeSlots[timeSlot - 1];
+
+        FullTimeStaff availableStaff = null;
+        for (FullTimeStaff staff : fullTimeStaff) {
+            if (staff.getAvailabilityHour().equals(selectedTimeSlot)) {
+                availableStaff = staff;
+                break;
+            }
+        }
+
+        if (availableStaff == null) {
+            System.out.println("No staff available at the selected time. Please try again later.");
+            return;
+        }
+
+        System.out.println(
+                "\n------ Appointment Confirmed ------\n" +
+                        "Thank you for your information " + customerName + ".\n" +
+                        "We have booked " + availableStaff.getName() + " as your personal shopper from " + selectedTimeSlot.getStartTime() + " to " + selectedTimeSlot.getEndTime() + ".\n" +
+                        "Please be on time and meet at the entrance of the mall.\n\n" +
+                        "----- Your Information -----\n" +
+                        "Name: " + customerName + "\n" +
+                        "Age: " + customerAge + "\n" +
+                        "Email: " + customerEmail + "\n" +
+                        "Phone Number: " + customerPhoneNumber + "\n" +
+                        "Gender: " + customerGender + "\n" +
+                        "Address: " + customerAddress + "\n"
+        );
+
     }
 
+    private static String getStringInput(Scanner scanner, String prompt) {
+        System.out.println(prompt);
+        return scanner.nextLine();
+    }
+
+    private static int getIntInput(Scanner scanner, String prompt) {
+        while (true) {
+            try {
+                System.out.println(prompt);
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next();
+            }
+        }
+    }
+
+    private static int getIntInput(Scanner scanner, String prompt, int min, int max) {
+        while (true) {
+            int value = getIntInput(scanner, prompt);
+            if (value >= min && value <= max) {
+                return value;
+            } else {
+                System.out.println("Invalid input. Please enter a number between " + min + " and " + max + ".");
+            }
+        }
+    }
 }

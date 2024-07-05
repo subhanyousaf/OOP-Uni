@@ -1,10 +1,10 @@
 package entities;
 
-import java.util.ArrayList;
+import misc.TimeSlot;
 
 public class FullTimeStaff extends Staff{
 
-    private ArrayList<String> availabilityHours = new ArrayList<String>();
+    private TimeSlot availabilityHour;
 
     public FullTimeStaff(String name, int age, String email, String phoneNumber, String gender, String address, double salary) {
         super(name, age, email, phoneNumber, gender, address, salary);
@@ -14,12 +14,12 @@ public class FullTimeStaff extends Staff{
         return FULL_TIME;
     }
 
-    public void setAvailabilityHours(ArrayList<String> availabilityHours) {
-        this.availabilityHours = availabilityHours;
+    public void setAvailabilityHour(TimeSlot availabilityHour) {
+        this.availabilityHour = availabilityHour;
     }
 
-    public ArrayList<String> getAvailabilityHours() {
-        return availabilityHours;
+    public TimeSlot getAvailabilityHour() {
+        return availabilityHour;
     }
 
 }
