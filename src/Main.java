@@ -9,11 +9,11 @@ public class Main {
         }
 
         /* Creating a new Person */
-        Person person = new Person("John Ibrahim", 20, "johnibrahim@gmail.com", "+923145663422", "Male", "123 Street, A Block, Super Town");
+        Person person = new Person("John Ibrahim", 20, "johnibrahim@gmail.com", "+923145663422", Person.GENDER_MALE, "123 Street, A Block, Super Town");
         System.out.println(person);
 
         /* Creating a new Staff */
-        Staff staff = new Staff("Ali Mohammed", 25, "alimohammed@yahoo.com", "+923132773733", "Male", "456 Street, B Block, Super Town", 1000);
+        Staff staff = new Staff("Ali Mohammed", 25, "alimohammed@yahoo.com", "+923132773733", Person.GENDER_MALE, "456 Street, B Block, Super Town", 1000);
         System.out.println(staff);
 
         /* Adding the staff to the staff list */

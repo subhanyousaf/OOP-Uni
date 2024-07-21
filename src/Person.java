@@ -7,6 +7,9 @@ public class Person {
     private String gender;
     private String address;
 
+    public static final String GENDER_MALE = "Male";
+    public static final String GENDER_FEMALE = "Female";
+
     public Person(String name, int age, String email, String phoneNumber, String gender, String address) {
         this.name = name;
         this.age = age;
