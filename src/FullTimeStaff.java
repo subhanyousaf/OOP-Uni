@@ -4,8 +4,4 @@ public class FullTimeStaff extends Staff{
         super(name, age, email, phoneNumber, gender, address, salary);
     }
 
-    public StaffType getStaffType() {
-        return StaffType.FullTime;
-    }
-
 }

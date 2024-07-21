@@ -19,8 +19,6 @@ public abstract class Staff extends Person {
         this.salary = salary;
     }
 
-    public abstract StaffType getStaffType();
-
     @Override
     public String toString() {
         return "--- Staff Details ---\n" +
@@ -30,8 +28,7 @@ public abstract class Staff extends Person {
                 "Phone Number: " + getPhoneNumber() + "\n" +
                 "Gender: " + getGender() + "\n" +
                 "Address: " + getAddress() + "\n" +
-                "Salary: " + Currency.getInstance(Locale.UK).getSymbol() + NumberFormat.getInstance().format(getSalary()) + "\n" +
-                "Staff Type: " + getStaffType().name() + "\n";
+                "Salary: " + Currency.getInstance(Locale.UK).getSymbol() + NumberFormat.getInstance().format(getSalary()) + "\n";
     }
 
 }
