@@ -1,7 +1,3 @@
-package departments;
-
-import entities.Staff;
-
 import java.util.ArrayList;
 
 public class Departments {
@@ -19,7 +15,7 @@ public class Departments {
         registerDepartment(new Department(MEN_CLOTHING, "Men's Clothing", "Clothing Floor", "+1 123 456 790", "menclothing@maximus.com"));
         registerDepartment(new Department(WOMEN_CLOTHING, "Women's Clothing", "Clothing Floor", "+1 123 456 789", "womenclothing@maximus.com"));
         registerDepartment(new Department(MAKEUP, "Makeup", "Cosmetics Floor", "+1 123 456 791", "makeup@maximus.com"));
-        registerDepartment(new FoodDepartment(FOOD, "Food", "Grocery Floor", "+1 123 456 792", "food@maximus.com"));
+        registerDepartment(new Department(FOOD, "Food", "Grocery Floor", "+1 123 456 792", "food@maximus.com"));
         registerDepartment(new Department(TOYS, "Toys", "Toy Floor", "+1 123 456 793", "toys@maximus.com"));
     }
 

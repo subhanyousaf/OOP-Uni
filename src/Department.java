@@ -1,5 +1,3 @@
-package departments;
-
 import java.util.ArrayList;
 
 public class Department {
