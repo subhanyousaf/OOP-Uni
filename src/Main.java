@@ -1,14 +1,26 @@
 public class Main {
 
     public static void main(String[] args) {
-        Customer customer = new Customer("Mohsin Pervaiz", 29, "mohsin@gmail.com", "+923024554354", "Male", "Gulbahar Block, Bahria Town");
-        System.out.println(customer);
+        /* Initialize the departments */
+        Departments.init();
 
-        FullTimeStaff fullTimeStaff = new FullTimeStaff("Ali Raza", 25, "aliraza@gmail.com", "+923024334543", "Male", "Gulmahar Block, Bahria Town", 50000);
-        System.out.println(fullTimeStaff);
+        for (Department department : Departments.getDepartments()) {
+            System.out.println(department);
+        }
 
-        PartTimeStaff partTimeStaff = new PartTimeStaff("Sara Khan", 22, "sarakhan@gmail.com", "+923164663425", "Female", "Badar Block, Bahria Town", 25000);
-        System.out.println(partTimeStaff);
+        /* Creating a new Person */
+        Person person = new Person("John Ibrahim", 20, "johnibrahim@gmail.com", "+923145663422", "Male", "123 Street, A Block, Super Town");
+        System.out.println(person);
+
+        /* Creating a new Staff */
+        Staff staff = new Staff("Ali Mohammed", 25, "alimohammed@yahoo.com", "+923132773733", "Male", "456 Street, B Block, Super Town", 1000);
+        System.out.println(staff);
+
+        /* Adding the staff to the staff list */
+        Departments.addStaff(staff);
+        for (Staff departmentStaff : Departments.getStaffList()) {
+            System.out.println("Department Staff: " + departmentStaff.getName());
+        }
     }
 
 }
